@@ -68,7 +68,7 @@ This Python program simulates football matches between teams, generates random s
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/football-match-simulator.git
+   git clone https://github.com/AseefBandey/football-match-simulator.git
 
 Author
 
