@@ -95,7 +95,7 @@ match_results = score(result, points_table)
 print("\n=== Points Table ===")
 sorted_points = sorted(points_table.items(), key=lambda x: x[1], reverse=True)
 for team, points in sorted_points:
-    print(f"{team}: vs {points} points")
+    print(f"{team}: {points} points")
 
 
  
