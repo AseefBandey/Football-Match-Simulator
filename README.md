@@ -1,6 +1,6 @@
 # Football Match Simulator
 
-This Python program simulates football matches and can be used to generate ucl group stage(Old Version) between teams, generates random scores, determines winners, and maintains a points table. It is designed to mimic a football league or tournament, allowing users to input their own list of teams and see the results of simulated matches.
+This Python program simulates a football league where each team plays every other team twice (home & away). It generates random match results, updates a points table with goal difference (GD), and ranks teams based on performance.
 
 ---
 
@@ -18,18 +18,18 @@ This Python program simulates football matches and can be used to generate ucl g
    - For each match, random scores are generated for both teams.
    - The winner is determined based on the scores, or it is declared a draw if the scores are equal.
 
-4. **Points Table**:
-   - A points table is maintained and updated after each match:
-     - **Win**: 3 points.
-     - **Draw**: 1 point for each team.
-     - **Loss**: 0 points.
+4. **Points Table with Goal Difference (GD)**:
+   - The league standings are sorted by:
+     - **Points** (higher is better)
+     - **Goal Difference** (GD) if points are tied
+
+     
 
 5. **Clear Output**:
    - The program displays:
      - Fixtures (list of matches).
-     - Match results (teams, scores, and winners).
-     - Updated points table (sorted by points).
-
+     - Simulated match results (teams, scores, and winners)
+     - Final points table (sorted by points & GD)
 ---
 
 ## How It Works
@@ -39,17 +39,18 @@ This Python program simulates football matches and can be used to generate ucl g
    - The program ensures the user enters **between 2 and 20 teams**.
 
 2. **Generate Fixtures**:
-   - Teams are shuffled and paired into matches.
-   - If the number of teams is odd, one team gets a bye.
+   - Fixtures are randomized but follow a balanced schedule (no immediate rematches).
+   - Each team plays every other twice (once home, once away).
+
 
 3. **Simulate Matches**:
-   - For each match, random scores are generated for both teams.
-   - The winner is determined, and the points table is updated.
+   - Random scores (0-5 goals) are assigned for each match.
+   - The winner, draw, and goal difference are calculated.
 
 4. **Display Results**:
    - The program prints:
-     - The list of fixtures.
-     - The results of each match (teams, scores, and winners).
+     - Fixtures
+     - Match results (teams, scores, and winners)
      - The updated points table.
 
 ---
@@ -69,6 +70,18 @@ This Python program simulates football matches and can be used to generate ucl g
 1. Clone the repository:
    ```bash
    git clone https://github.com/AseefBandey/football-match-simulator.git
+
+2. Run the Program
+   ```bash
+   python league_simulator.py
+
+
+ ## Future Improvements
+
+- Add top scorers tracking
+- Include Knockout Rounds (Champions League Format)
+- Implement customized league settings (number of games per team, point rules, etc.)
+
 
 Author
 
