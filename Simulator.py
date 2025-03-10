@@ -1,5 +1,7 @@
 import random
 
+#get input from user for team
+
 def get_teams():
     while True:
         teams_input = input("Enter the names of the teams (minimum 2, maximum 20), separated by commas: ")
@@ -13,7 +15,7 @@ def get_teams():
 
 
 def initialize_points_table(teams):
-    return {team: 0 for team in teams}
+    return {team: 0 for team in teams} # Gives or intializes every team with zero as points
 
 def Fixtures(teams):
     
@@ -39,6 +41,7 @@ def Fixtures(teams):
     
     return fixtures
 
+# now will add Goal Difference. SOON  
 def score(result, points_table):
     match_results = []
     print("\n=== Simulating Matches ===")
@@ -99,3 +102,4 @@ for team, points in sorted_points:
 
 
  
+ # Add GD 
