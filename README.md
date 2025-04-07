@@ -1,89 +1,123 @@
-# Football Match Simulator
+Football Match Simulator
 
-This Python program simulates a football league where each team plays every other team twice (home & away). It generates random match results, updates a points table with goal difference (GD), and ranks teams based on performance.
+This Python program simulates a football league where each team plays every other team twice (home & away). It generates random match results, updates a points table with goal difference (GD), and ranks teams based on performance. It now also tracks top scorers, assists, clean sheets, and simulates matchdays interactively.
+Features
 
----
+    User Input for Teams:
 
-## Features
+        Users can input the names of the teams (minimum 2, maximum 20).
 
-1. **User Input for Teams**:
-   - Users can input the names of the teams (minimum 2, maximum 20).
-   - Teams are validated to ensure the correct number is entered.
+        Teams are validated to ensure the correct number is entered.
 
-2. **Random Fixture Generation**:
-   - Teams are shuffled and paired into fixtures randomly.
-   - If the number of teams is odd, one team gets a **bye** (no match for that round).
+    Random Fixture Generation (Home & Away):
 
-3. **Match Simulation**:
-   - For each match, random scores are generated for both teams.
-   - The winner is determined based on the scores, or it is declared a draw if the scores are equal.
+        Each team plays every other team twice – once at home, once away.
 
-4. **Points Table with Goal Difference (GD)**:
-   - The league standings are sorted by:
-     - **Points** (higher is better)
-     - **Goal Difference** (GD) if points are tied
+        Fixtures are randomized and grouped into matchdays.
 
-     
+        No team plays twice in the same matchday.
 
-5. **Clear Output**:
-   - The program displays:
-     - Fixtures (list of matches).
-     - Simulated match results (teams, scores, and winners)
-     - Final points table (sorted by points & GD)
----
+    Matchday Simulation:
 
-## How It Works
+        Press Enter to simulate each matchday manually.
 
-1. **Input Teams**:
-   - The user is prompted to enter the names of the teams, separated by commas.
-   - The program ensures the user enters **between 2 and 20 teams**.
+        Each match randomly generates scores between 0 and 5 for each team.
 
-2. **Generate Fixtures**:
-   - Fixtures are randomized but follow a balanced schedule (no immediate rematches).
-   - Each team plays every other twice (once home, once away).
+        Winner is determined based on scores, or declared a draw if equal.
 
+    Points Table with Goal Difference (GD):
 
-3. **Simulate Matches**:
-   - Random scores (0-5 goals) are assigned for each match.
-   - The winner, draw, and goal difference are calculated.
+        The league standings are sorted by:
 
-4. **Display Results**:
-   - The program prints:
-     - Fixtures
-     - Match results (teams, scores, and winners)
-     - The updated points table.
+            Points (higher is better)
 
----
+            Goal Difference (GD) if points are tied
 
+    Player Stats Tracking:
 
----
+        Top Scorers: Tracks players with the most goals.
 
-## Requirements
+        Top Assisters: Tracks players providing the most assists.
 
-- Python 3.x
-- No external libraries are required.
+        Clean Sheets: Tracks goalkeepers who kept clean sheets.
 
----
+    Clear Output:
 
-## How to Use
+        The program displays:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AseefBandey/football-match-simulator.git
+            Fixtures (organized matchdays).
 
-2. Run the Program
-   ```bash
-   python league_simulator.py
+            Simulated match results (teams, scores, and winners).
 
- ## Future Improvements
+            Player awards (top 5 scorers, assisters, clean sheet leaders).
 
-- Add top scorers tracking
-- Include Knockout Rounds (Champions League Format)
-- Implement customized league settings (number of games per team, point rules, etc.)
+            Final points table (sorted by points & GD).
 
+How It Works
+
+    Input Teams:
+
+        The user is prompted to enter the names of the teams, separated by commas.
+
+        The program ensures the user enters between 2 and 20 teams.
+
+    Generate Fixtures:
+
+        Each team plays every other twice (home & away).
+
+        Fixtures are randomized and split into matchdays.
+
+        No duplicate team matchups on the same day.
+
+    Simulate Matches:
+
+        Random scores (0-5 goals) are assigned for each match.
+
+        Random players are assigned as scorers and assisters.
+
+        Clean sheets awarded to goalkeepers when opponents score 0.
+
+    Display Results:
+
+        The program prints:
+
+            Matchday fixtures and results.
+
+            Scorers, assisters, and clean sheets.
+
+            The updated points table.
+
+            Player awards after the final matchday.
+
+Requirements
+
+    Python 3.x
+
+    No external libraries are required.
+
+How to Use
+
+    Clone the repository: 
+    git clone https://github.com/AseefBandey/football-match-simulator.git
+      cd football-match-simulator
+   Run the Program:
+      python league_simulator.py
+
+Future Improvements
+
+Add top scorers tracking
+
+Track assists and clean sheets
+
+Include Knockout Rounds (Champions League Format)
+
+Save stats and results to file
+
+Add customizable league settings (e.g., points system, number of matches)
+
+    GUI or Web Interface using Flask/Streamlit
 
 Author
 
 GitHub: AseefBandey
-
 Email: aseefahmad46@gmail.com
