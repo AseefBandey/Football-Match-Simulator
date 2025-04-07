@@ -84,9 +84,6 @@ This Python program simulates a football league where each team plays every othe
    python league_simulator.py
 Future Improvements
 
-Add top scorers tracking
-
-Track assists and clean sheets
 
 Include Knockout Rounds (Champions League Format)
 
