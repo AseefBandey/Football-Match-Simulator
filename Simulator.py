@@ -125,3 +125,4 @@ for team, pts in sorted(points_table.items(), key=lambda x: x[1], reverse=True):
 # Awards
 show_awards(top_scorers, top_assisters, clean_sheets)
 
+#Give a Star
