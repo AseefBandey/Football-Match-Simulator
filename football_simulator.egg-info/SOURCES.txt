@@ -1,0 +1,13 @@
+LICENSE
+README.md
+setup.py
+football_simulator/__init__.py
+football_simulator/cli.py
+football_simulator/models.py
+football_simulator/persistence.py
+football_simulator.egg-info/PKG-INFO
+football_simulator.egg-info/SOURCES.txt
+football_simulator.egg-info/dependency_links.txt
+football_simulator.egg-info/entry_points.txt
+football_simulator.egg-info/requires.txt
+football_simulator.egg-info/top_level.txt

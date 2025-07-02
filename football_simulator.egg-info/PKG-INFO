@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: football_simulator
+Version: 0.1.0
+Summary: A football match simulator with realistic match generation
+Author: Your Name
+Keywords: football,simulator,sports
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: colorama>=0.4.6
+Requires-Dist: tqdm>=4.65.0
+Requires-Dist: questionary>=2.0.0
+Dynamic: author
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

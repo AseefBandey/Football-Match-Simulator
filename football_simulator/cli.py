@@ -5,7 +5,7 @@ import sys
 import os
 from typing import List, Dict, Optional
 import random
-from PyInquirer import prompt, Separator
+import questionary
 from colorama import init, Fore, Style
 from tqdm import tqdm
 import time
@@ -34,21 +34,19 @@ def create_team(name: str) -> Team:
 
 def get_teams() -> List[Team]:
     """Get teams from user input."""
-    questions = [
-        {
-            'type': 'input',
-            'name': 'teams',
-            'message': 'Enter team names (comma-separated, 2-20 teams):',
-            'validate': lambda answer: 2 <= len(answer.split(',')) <= 20 or 'Please enter between 2 and 20 teams'
-        }
-    ]
-    
-    answers = prompt(questions)
-    if not answers:  # User pressed Ctrl+C
-        sys.exit(0)
+    while True:
+        teams_input = questionary.text(
+            "Enter team names (comma-separated, 2-20 teams):"
+        ).ask()
         
-    team_names = [name.strip() for name in answers['teams'].split(',')]
-    return [create_team(name) for name in team_names]
+        if teams_input is None:  # User pressed Ctrl+C
+            sys.exit(0)
+            
+        team_names = [name.strip() for name in teams_input.split(',')]
+        if 2 <= len(team_names) <= 20:
+            return [create_team(name) for name in team_names]
+        
+        print("Please enter between 2 and 20 teams.")
 
 def display_match_stats(match: Match):
     """Display detailed match statistics."""
@@ -146,21 +144,14 @@ def load_or_new_league() -> League:
         print("No saved leagues found. Starting a new league...")
         return League("Simulation League", get_teams())
         
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Would you like to load a saved league or start a new one?',
-            'choices': ['Start New League', 'Load Latest Save', 'Choose Save File']
-        }
-    ]
+    action = questionary.select(
+        "Would you like to load a saved league or start a new one?",
+        choices=['Start New League', 'Load Latest Save', 'Choose Save File']
+    ).ask()
     
-    answers = prompt(questions)
-    if not answers:  # User pressed Ctrl+C
+    if action is None:  # User pressed Ctrl+C
         sys.exit(0)
         
-    action = answers['action']
-    
     if action == 'Start New League':
         return League("Simulation League", get_teams())
     elif action == 'Load Latest Save':
@@ -170,19 +161,15 @@ def load_or_new_league() -> League:
             return League("Simulation League", get_teams())
         return load_league(latest)
     else:  # Choose Save File
-        save_choices = [
-            {
-                'type': 'list',
-                'name': 'save_file',
-                'message': 'Choose a save file:',
-                'choices': [os.path.basename(f) for f in saves]
-            }
-        ]
-        save_answer = prompt(save_choices)
-        if not save_answer:  # User pressed Ctrl+C
+        save_file = questionary.select(
+            "Choose a save file:",
+            choices=[os.path.basename(f) for f in saves]
+        ).ask()
+        
+        if save_file is None:  # User pressed Ctrl+C
             sys.exit(0)
             
-        chosen_save = next(s for s in saves if os.path.basename(s) == save_answer['save_file'])
+        chosen_save = next(s for s in saves if os.path.basename(s) == save_file)
         return load_league(chosen_save)
 
 def simulate_season():
@@ -202,27 +189,20 @@ def simulate_season():
             print(f"\n{Fore.GREEN}Season completed!{Style.RESET_ALL}")
             break
             
-        questions = [
-            {
-                'type': 'list',
-                'name': 'action',
-                'message': 'What would you like to do?',
-                'choices': [
-                    'Simulate next matchday',
-                    'View league table',
-                    'View statistics',
-                    'View team details',
-                    'Save game',
-                    'Exit'
-                ]
-            }
-        ]
+        action = questionary.select(
+            "What would you like to do?",
+            choices=[
+                'Simulate next matchday',
+                'View league table',
+                'View statistics',
+                'View team details',
+                'Save game',
+                'Exit'
+            ]
+        ).ask()
         
-        answers = prompt(questions)
-        if not answers:  # User pressed Ctrl+C
+        if action is None:  # User pressed Ctrl+C
             sys.exit(0)
-            
-        action = answers['action']
         
         if action == 'Simulate next matchday':
             print(f"\n{Fore.CYAN}Simulating Matchday {league.current_matchday + 1}{Style.RESET_ALL}")
@@ -242,17 +222,13 @@ def simulate_season():
             display_stats(league)
             
         elif action == 'View team details':
-            team_choices = [
-                {
-                    'type': 'list',
-                    'name': 'team',
-                    'message': 'Select a team:',
-                    'choices': [team.name for team in league.teams]
-                }
-            ]
-            team_answer = prompt(team_choices)
-            if team_answer:
-                selected_team = next(team for team in league.teams if team.name == team_answer['team'])
+            team_name = questionary.select(
+                "Select a team:",
+                choices=[team.name for team in league.teams]
+            ).ask()
+            
+            if team_name:
+                selected_team = next(team for team in league.teams if team.name == team_name)
                 display_team_stats(selected_team)
                 
         elif action == 'Save game':
@@ -262,16 +238,12 @@ def simulate_season():
         else:  # Exit
             # Ask to save before exit if there are unsaved changes
             if league.current_matchday > 0:
-                save_question = [
-                    {
-                        'type': 'confirm',
-                        'name': 'save',
-                        'message': 'Would you like to save before exiting?',
-                        'default': True
-                    }
-                ]
-                save_answer = prompt(save_question)
-                if save_answer and save_answer['save']:
+                should_save = questionary.confirm(
+                    "Would you like to save before exiting?",
+                    default=True
+                ).ask()
+                
+                if should_save:
                     save_path = save_league(league)
                     print(f"\n{Fore.GREEN}Game saved to: {save_path}{Style.RESET_ALL}")
             sys.exit(0)
@@ -282,16 +254,12 @@ def simulate_season():
     display_stats(league)
     
     # Ask to save completed season
-    save_question = [
-        {
-            'type': 'confirm',
-            'name': 'save',
-            'message': 'Would you like to save this completed season?',
-            'default': True
-        }
-    ]
-    save_answer = prompt(save_question)
-    if save_answer and save_answer['save']:
+    should_save = questionary.confirm(
+        "Would you like to save this completed season?",
+        default=True
+    ).ask()
+    
+    if should_save:
         save_path = save_league(league)
         print(f"\n{Fore.GREEN}Season saved to: {save_path}{Style.RESET_ALL}")
 

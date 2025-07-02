@@ -7,7 +7,7 @@ setup(
     install_requires=[
         "colorama>=0.4.6",
         "tqdm>=4.65.0",
-        "PyInquirer>=1.0.3",
+        "questionary>=2.0.0",
     ],
     entry_points={
         "console_scripts": [

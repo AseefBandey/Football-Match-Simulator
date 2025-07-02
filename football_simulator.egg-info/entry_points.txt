@@ -1,0 +1,2 @@
+[console_scripts]
+football-sim = football_simulator.cli:main
